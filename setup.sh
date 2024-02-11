@@ -4,7 +4,7 @@ GO_VERSION="1.22.0"
 OS_ARCH="linux-amd64" # change this according to your OS architecture
 GO_URL="https://golang.org/dl/go$GO_VERSION.$OS_ARCH.tar.gz"
 INSTALL_DIR="/usr/local"
-PROFILE_FILE="$HOME/.profile"
+SHELL_FILE="$HOME/.zshrc"
 
 
 # main installation
@@ -16,11 +16,11 @@ if ! command -v go &> /dev/null; then
     wget -qO- "$GO_URL" | sudo tar -C "$INSTALL_DIR" -xz
 
     # set up Go environment variables
-    echo "export PATH=\$PATH:$INSTALL_DIR/go/bin"   | sudo tee -a "$PROFILE_FILE" > /dev/null
-    echo "export GOPATH=\$HOME/go"                  | sudo tee -a "$PROFILE_FILE" > /dev/null
-    echo "export PATH=\$PATH:\$GOPATH/bin"          | sudo tee -a "$PROFILE_FILE" > /dev/null
+    echo "export PATH=\$PATH:$INSTALL_DIR/go/bin"   | sudo tee -a "$SHELL_FILE" > /dev/null
+    echo "export GOPATH=\$HOME/go"                  | sudo tee -a "$SHELL_FILE" > /dev/null
+    echo "export PATH=\$PATH:\$GOPATH/bin"          | sudo tee -a "$SHELL_FILE" > /dev/null
 
-    source "$PROFILE_FILE"
+    source "$SHELL_FILE"
 fi
 
 # dnsx
