@@ -41,6 +41,7 @@ fi
 # x8
 if ! command -v x8 &> /dev/null; then
     sudo wget -q https://github.com/Sh1Yo/x8/releases/download/v4.3.0/x86_64-linux-x8.gz -O x8.gz && gzip -d x8.gz && mv ./x8 /usr/bin && sudo chmod +x /usr/bin/x8
+    cd ..
 fi
 
 # ffuf
@@ -60,7 +61,12 @@ fi
 
 # massdns
 if [ ! -d "massdns" ]; then
-    git clone https://github.com/blechschmidt/massdns.git && cd massdns && make && mv massdns $HOME
+    git clone https://github.com/blechschmidt/massdns.git && cd massdns && make && mv massdns $HOME && cd ..
+fi
+
+# prips
+if ! command -v prips &> /dev/null; then
+    git clone https://gitlab.com/prips/prips.git && cd prips && make && sudo mv prips /usr/bin && cd ..
 fi
 
 # gau
@@ -71,14 +77,14 @@ fi
 # dnsgen
 if [ ! -d "dnsgen" ]; then
     git clone https://github.com/ProjectAnte/dnsgen && cd dnsgen && pip install -r requirements.txt && python3 setup.py install 
-    mv dnsgen $HOME
+    mv dnsgen $HOME && cd ..
 fi
 
 # create wordlist directory if not already exist
 if [ ! -d "wordlist" ]; then
     mkdir wordlist && cd wordlist
     # Clone BoOoM wordlist
-    wget -q https://raw.githubusercontent.com/Bo0oM/fuzz.txt/master/fuzz.txt && mv wordlist $HOME && cd ~
+    wget -q https://raw.githubusercontent.com/Bo0oM/fuzz.txt/master/fuzz.txt && mv wordlist $HOME && cd $HOME
 fi
 
 # oh my zsh if not already installed
