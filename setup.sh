@@ -9,7 +9,7 @@ SHELL_FILE="$HOME/.zshrc"
 
 # main installation
 sudo apt update
-sudo apt install -y git vim tmux curl wget zsh gzip zip build-essential unzip python3-pip python3-venv python3-psutil
+sudo apt install -y git vim tmux curl whois jq wget zsh gzip zip build-essential unzip python3-pip python3-venv python3-psutil
 
 # go
 if ! command -v go &> /dev/null; then
