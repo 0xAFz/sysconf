@@ -5,7 +5,7 @@ OS_ARCH="linux-amd64" # change this according to your OS architecture
 GO_URL="https://golang.org/dl/go$GO_VERSION.$OS_ARCH.tar.gz"
 INSTALL_DIR="/usr/local"
 PROFILE_FILE="$HOME/.profile"
-
+$ZSH_FILE="$HOME/.zshrc"
 
 # main installation
 sudo apt update
@@ -91,10 +91,17 @@ if [ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions" ]
 fi
 
 # add zsh-autosuggestions to .zshrc if not already added
-if ! grep -q "zsh-autosuggestions" "$HOME/.zshrc"; then
-    sed -i 's/^plugins=(git)$/plugins=(git zsh-autosuggestions)/' "$HOME/.zshrc"
+if ! grep -q "zsh-autosuggestions" "$ZSH_FILE"; then
+    sed -i 's/^plugins=(git)$/plugins=(git zsh-autosuggestions)/' "$ZSH_FILE"
 fi
 
+# change default shell to zsh
 chsh -s /usr/bin/zsh
+
+# set up Go environment variables
+echo "export PATH=\$PATH:$INSTALL_DIR/go/bin"   | sudo tee -a "$ZSH_FILE" > /dev/null
+echo "export GOPATH=\$HOME/go"                  | sudo tee -a "$ZSH_FILE" > /dev/null
+echo "export PATH=\$PATH:\$GOPATH/bin"          | sudo tee -a "$ZSH_FILE" > /dev/null
+
 
 echo "Completed."
