@@ -5,7 +5,7 @@ OS_ARCH="linux-amd64" # change this according to your OS architecture
 GO_URL="https://golang.org/dl/go$GO_VERSION.$OS_ARCH.tar.gz"
 INSTALL_DIR="/usr/local"
 PROFILE_FILE="$HOME/.profile"
-$ZSH_FILE="$HOME/.zshrc"
+ZSH_FILE="$HOME/.zshrc"
 
 # main installation
 sudo apt update
