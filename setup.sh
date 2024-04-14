@@ -1,6 +1,6 @@
 #!/bin/bash
 
-GO_VERSION="1.22.0"
+GO_VERSION="1.22.2"
 OS_ARCH="linux-amd64" # change this according to your OS architecture
 GO_URL="https://golang.org/dl/go$GO_VERSION.$OS_ARCH.tar.gz"
 INSTALL_DIR="/usr/local"
@@ -8,17 +8,17 @@ PROFILE_FILE="$HOME/.profile"
 ZSH_FILE="$HOME/.zshrc"
 
 # main installation
-sudo apt update
-sudo apt install -y git vim tmux curl wget zsh gzip zip unzip build-essential python3-pip python3-venv python3-psutil python3-poetry
+apt update
+apt install -y git vim tmux curl wget zsh gzip zip unzip build-essential python3-pip python3-venv python3-psutil python3-poetry
 
 # go
 if ! command -v go &> /dev/null; then
-    wget -qO- "$GO_URL" | sudo tar -C "$INSTALL_DIR" -xz
+    wget -qO- "$GO_URL" | tar -C "$INSTALL_DIR" -xz
 
     # set up Go environment variables
-    echo "export PATH=\$PATH:$INSTALL_DIR/go/bin"   | sudo tee -a "$PROFILE_FILE" > /dev/null
-    echo "export GOPATH=\$HOME/go"                  | sudo tee -a "$PROFILE_FILE" > /dev/null
-    echo "export PATH=\$PATH:\$GOPATH/bin"          | sudo tee -a "$PROFILE_FILE" > /dev/null
+    echo "export PATH=\$PATH:$INSTALL_DIR/go/bin"   | tee -a "$PROFILE_FILE" > /dev/null
+    echo "export GOPATH=\$HOME/go"                  | tee -a "$PROFILE_FILE" > /dev/null
+    echo "export PATH=\$PATH:\$GOPATH/bin"          | tee -a "$PROFILE_FILE" > /dev/null
 
     source "$PROFILE_FILE"
 fi
@@ -40,12 +40,22 @@ fi
 
 # x8
 if ! command -v x8 &> /dev/null; then
-    sudo wget -q https://github.com/Sh1Yo/x8/releases/download/v4.3.0/x86_64-linux-x8.gz -O x8.gz && gzip -d x8.gz && mv ./x8 /usr/bin && sudo chmod +x /usr/bin/x8
+    wget -q https://github.com/Sh1Yo/x8/releases/download/v4.3.0/x86_64-linux-x8.gz -O x8.gz && gzip -d x8.gz && mv ./x8 /usr/bin && sudo chmod +x /usr/bin/x8
 fi
 
 # ffuf
 if ! command -v ffuf &> /dev/null && command -v go &> /dev/null; then
     go install github.com/ffuf/ffuf/v2@latest
+fi
+
+# gospider
+if ! command -v gospider &> /dev/null && command -v go &> /dev/null; then
+    go install github.com/jaeles-project/gospider@latest
+fi
+
+# waybackurls
+if ! command -v waybackurls &> /dev/null && command -v go &> /dev/null; then
+    go install github.com/tomnomnom/waybackurls@latest
 fi
 
 # subfinder
@@ -60,7 +70,7 @@ fi
 
 # massdns
 if [ ! -d "massdns" ]; then
-    git clone https://github.com/blechschmidt/massdns.git && cd massdns && make && cd bin && sudo cp massdns /usr/bin && cd .. && mv massdns $HOME
+    git clone https://github.com/blechschmidt/massdns.git && cd massdns && make && cd bin && cp massdns /usr/bin && cd .. && mv massdns $HOME
 fi
 
 # gau
@@ -71,13 +81,6 @@ fi
 # dnsgen
 if [ ! -d "dnsgen" ]; then
     python3 -m pip install --break-system-packages dnsgen
-fi
-
-# create wordlist directory if not already exist
-if [ ! -d "wordlist" ]; then
-    mkdir wordlist && cd wordlist
-    # Clone BoOoM wordlist
-    wget -q https://raw.githubusercontent.com/Bo0oM/fuzz.txt/master/fuzz.txt && mv wordlist $HOME && cd ~
 fi
 
 # oh my zsh if not already installed
@@ -99,9 +102,9 @@ fi
 chsh -s /usr/bin/zsh
 
 # set up Go environment variables
-echo "export PATH=\$PATH:$INSTALL_DIR/go/bin"   | sudo tee -a "$ZSH_FILE" > /dev/null
-echo "export GOPATH=\$HOME/go"                  | sudo tee -a "$ZSH_FILE" > /dev/null
-echo "export PATH=\$PATH:\$GOPATH/bin"          | sudo tee -a "$ZSH_FILE" > /dev/null
+echo "export PATH=\$PATH:$INSTALL_DIR/go/bin"   | tee -a "$ZSH_FILE" > /dev/null
+echo "export GOPATH=\$HOME/go"                  | tee -a "$ZSH_FILE" > /dev/null
+echo "export PATH=\$PATH:\$GOPATH/bin"          | tee -a "$ZSH_FILE" > /dev/null
 
 
 echo "Completed."
