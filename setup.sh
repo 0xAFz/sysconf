@@ -39,7 +39,7 @@ fi
 
 # x8
 if ! command -v x8 &> /dev/null; then
-    wget -q https://github.com/Sh1Yo/x8/releases/download/v4.3.0/x86_64-linux-x8.gz -O x8.gz && gzip -d x8.gz && mv ./x8 /usr/bin && sudo chmod +x /usr/bin/x8
+    wget -q https://github.com/Sh1Yo/x8/releases/download/v4.3.0/x86_64-linux-x8.gz -O x8.gz && gzip -d x8.gz && mv ./x8 /usr/bin && chmod +x /usr/bin/x8
 fi
 
 # ffuf
@@ -69,7 +69,7 @@ fi
 
 # massdns
 if [ ! -d "massdns" ]; then
-    git clone https://github.com/blechschmidt/massdns.git && cd massdns && make && cd bin && cp massdns /usr/bin && cd .. && mv massdns $HOME
+    git clone https://github.com/blechschmidt/massdns.git && cd massdns && make && cd bin && cp massdns /usr/bin && cd ../../ && rm -rf massdns && cd ..
 fi
 
 # gau
@@ -79,7 +79,8 @@ fi
 
 # dnsgen
 if [ ! -d "dnsgen" ]; then
-    python3 -m pip install --break-system-packages dnsgen
+    # --break-system-packages
+    python3 -m pip install dnsgen
 fi
 
 # oh my zsh if not already installed
