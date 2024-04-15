@@ -8,7 +8,7 @@ PROFILE_FILE="$HOME/.profile"
 ZSH_FILE="$HOME/.zshrc"
 
 # main installation
-apt update && apt install -y git vim tmux curl wget zsh gzip zip unzip build-essential python3-pip python3-venv python3-psutil python3-poetry
+apt update && apt install -y git vim tmux curl wget jq whois zsh gzip zip unzip build-essential python3-pip python3-venv python3-psutil python3-poetry
 
 # go
 if ! command -v go &> /dev/null; then
