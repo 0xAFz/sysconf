@@ -46,7 +46,7 @@ if command -v go &> /dev/null; then
 
 	# ffuf
 	if ! command -v ffuf &> /dev/null; then
-    	go install github.com/ffuf/ffuf/v2@latest
+    		go install github.com/ffuf/ffuf/v2@latest
 	fi
 
 	# gospider
@@ -56,7 +56,12 @@ if command -v go &> /dev/null; then
 
 	# waybackurls
 	if ! command -v waybackurls &> /dev/null; then
-    	go install github.com/tomnomnom/waybackurls@latest
+    		go install github.com/tomnomnom/waybackurls@latest
+	fi
+
+	# unfurl
+	if ! command -v unfurl &> /dev/null; then
+		go install github.com/tomnomnom/unfurl@latest
 	fi
 
 	# subfinder
